@@ -1,51 +1,52 @@
-import Dino from '../models/dino.model.js';
+import Tree from '../models/tree.model.js';
 
-const getAllDinos = async (req, res) => {
-    const dinos= await Dino.find();
-    res.json(dinos)
+const getAllTrees = async (req, res) => {
+    const trees= await Tree.find();
+    res.json(trees)
 }
 
-const getOneDino = async (req, res) => {
-    const dinoId = req.params.dinoId; //id wird im Hintergrund von mongoose erledigt und zu "_id"
-    const foundDino = await Dino.findById(dinoId) //Mongoose-version, gegenüber der bisherigen low-level version
-    res.json(foundDino)
+const getOneTree = async (req, res) => {
+    const treeId = req.params.treeId;
+    const foundTree = await Tree.findById(treeId)
+    res.json(foundTree)
 }
 
-const postDino = async (req, res) => {
-    const dinosaur = new Dino({
+const postTree = async (req, res) => {
+    const tree = new Tree({
         name: req.body.name,
-        type: req.body.type,
-        vegan: req.body.vegan
+        price: req.body.price,
+        isDecorated: req.body.isDecorated,
+        tags: req.body.tags,
+        contact: req.body.contact
     })
     try {
-        const result = await dinosaur.save()
+        const result = await tree.save()
         //res.json(result)
-        res.json({message: 'Successfully added dino with id: ' + result._id, data: result,}) //?
+        res.json({message: 'Successfully added tree with id: ' + result._id, data: result,}) //?
     } catch (error) {
         res.json(error);
         }
 }
 
-const  updateDino = async (req, res) => { //in POstman id oben in Pfad angeben, nicht im bodypart
-    const dinoId = req.params.dinoId
-    const dino = req.body; //name, breed, type, age....
-    const result = await Dino.findByIdAndUpdate(dinoId, dino, {returnDocument: 'after'}) //3.parameter query options: wird alte/ neue Version in Postman angezeigt?
-    res.json(result) // "returnDocument: 'after'" entspricht "new: true"
+const  updateTree = async (req, res) => {
+    const treeId = req.params.treeId
+    const tree = req.body; //name, breed, type, age....
+    const result = await Tree.findByIdAndUpdate(treeId, tree, {returnDocument: 'after'})
+    res.json(result)
 }
 
-const deleteDino = async (req, res) => {
-    const dinoId = req.params.dinoId
+const deleteTree = async (req, res) => {
+    const treeId = req.params.treeId
     try {
-        const result = await Dino.findByIdAndDelete(dinoId)
+        const result = await Tree.findByIdAndDelete(treeId)
         if (result) {
-            res.json({status: 'Successfully deleted dino.'}) //möglich, auch noch "success: true" hinzuzufügen
-            //res.json('Successfully deleted dino.') //geht auch als string, aber json eigentlich immer objects
+            res.json({status: 'Successfully deleted tree.'})
         } else {
-            res.json({status: 'Could not delete dino.'})
+            res.json({status: 'Could not delete tree.'})
         }
     } catch (error) {
         res.json({status: 'Something else happened.'})
         }
 }
 
-export {getAllDinos, getOneDino, postDino, updateDino, deleteDino }
+export {getAllTrees, getOneTree, postTree, updateTree, deleteTree }

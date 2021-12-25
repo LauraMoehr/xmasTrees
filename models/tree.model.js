@@ -1,17 +1,14 @@
 import mongoose from 'mongoose';
 
-const dinoSchema = new mongoose.Schema({ //dino wird obj sein
-    name: String, //datatype starting w/ capital letter
-    type: String,
-    // type: { // ...auch möglich
-    //     required: true,
-    //     type: String
-    // },
-    vegan: Boolean,
+const treeSchema = new mongoose.Schema({
+    name: String,
+    price: Number,
+    isDecorated: Boolean,
+    //size: ??,
+    tags: String,
+    contact: String
 })
 
-//Model starting with capital letter, erzeugt auf Basis des Schemas
-const Dino = mongoose.model('Dino', dinoSchema)
-//collection dino angelegt
+const Tree = mongoose.model('Tree', treeSchema)
 
-export default Dino;
+export default Tree;
