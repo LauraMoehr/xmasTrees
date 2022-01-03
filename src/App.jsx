@@ -12,9 +12,6 @@ function App() {
   useEffect(() => saveToLocal('_products', products), [products]);
   const addProduct= (product) => setProducts([...products, product]) //eckige Klammern hier!
 
-  //const categories = [];
-  //const [hasErrors, setHasErrors] = useState(false)
-
   return (
     <div className="App" style={{ 
       backgroundImage: `url("https://cdn.pixabay.com/photo/2016/11/29/03/46/christmas-tree-1867135_1280.jpg")`}}>

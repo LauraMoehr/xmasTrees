@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Textinput from './Textinput';
 import Numberinput from './Numberinput';
@@ -18,7 +18,19 @@ export default function Form({onAddProduct}) {
         contact: '',
       };
 
+
+    const [categories, setCategories] = useState([])
     const [product, setProduct] = useState(initialProduct);
+
+
+    const fetchCategories = async () => {
+      const response = await fetch("http://localhost:4000/categories")
+      const data = await response.json()
+      setCategories(data)
+    }
+    useEffect(() => fetchCategories(), []) //fetchCategories wird hier ausgeführt, einmal beim initial render
+
+    //const [hasErrors, setHasErrors] = useState(false)
 
     const handleChange = (event) => {
         let inputValue = event.target.value;
@@ -60,11 +72,11 @@ export default function Form({onAddProduct}) {
             Decorated
           </Checkbox>
           <label htmlFor="category">Choose Category:</label>
-          <select defaultValue="" name="category" id="category" value={product.category} onChange={handleChange}>
-            <option value="Kiefer">Kiefer</option>
-            <option value="Lärche">Lärche</option>
-            <option value="Palme">Palme</option>
-            <option value="Tanne">Tanne</option>
+          <select defaultValue="" name="category" id="category" value={product.category} onChange={handleChange}> {/*TO DO: diese Zeile besser verstehen*/}
+            <option value="">Bitte wählen</option>
+            {categories.map(option  => (
+              <option key={option._id} value={option.category}>{option.category}</option>
+              ))}
           </select>
           <label>Size:</label>
           <input type="radio" name="size" value="S" onChange={handleChange} checked={product.size === 'S'}/>S
