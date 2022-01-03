@@ -2,7 +2,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Textinput from './Textinput';
 import Numberinput from './Numberinput';
-//import New from './New';
 import ProductTags from './ProductTags';
 import isValid from './lib/validation.js';
 import {v4 as uuidv4}  from 'uuid';
@@ -60,18 +59,18 @@ export default function Form({onAddProduct}) {
             <input type="checkbox" name="isDecorated" id="isDecorated" onChange={handleChange} checked={product.isDecorated}/>
             Decorated
           </Checkbox>
-          {/* <label htmlFor="category">Choose Category</label>
+          <label htmlFor="category">Choose Category:</label>
           <select defaultValue="" name="category" id="category" value={product.category} onChange={handleChange}>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-            <option value=""></option>
-          </select> */}
-          {/* <label>Baumgröße:</label>
+            <option value="Kiefer">Kiefer</option>
+            <option value="Lärche">Lärche</option>
+            <option value="Palme">Palme</option>
+            <option value="Tanne">Tanne</option>
+          </select>
+          <label>Size:</label>
           <input type="radio" name="size" value="S" onChange={handleChange} checked={product.size === 'S'}/>S
           <input type="radio" name="size" value="M" onChange={handleChange} checked={product.size === 'M'}/>M
           <input type="radio" name="size" value="L" onChange={handleChange} checked={product.size === 'L'}/>L
-          <input type="radio" name="size" value="XXXXL" onChange={handleChange} checked={product.size === 'XXXXL'}/>XXXXL<br/> */}
+          <input type="radio" name="size" value="XXXXL" onChange={handleChange} checked={product.size === 'XXXXL'}/>XXXXL<br/>
 
           
           <ProductTags tags={product.tags} onDeleteTag={deleteTag} onUpdateTags={updateTags}/>

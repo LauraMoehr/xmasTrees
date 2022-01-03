@@ -28,6 +28,8 @@ export default function Card({products}) {
                     <p>
                     {product.price} €
                     </p>
+                    <p>Category: {product.category}</p>
+                    <p>Size: {product.size}</p>
                     <p>
                         {product.tags.sort().join(', ')}
                     </p>
